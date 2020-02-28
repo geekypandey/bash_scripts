@@ -1,0 +1,22 @@
+#!/bin/bash
+
+REQ=requirements.txt
+
+if [ -d 'venv' ]; then
+	echo "Using 'venv' as virtual environment"
+	source venv/bin/activate
+else
+	echo "Creating new virutal environment...."
+	python -m venv venv
+	source venv/bin/activate
+	echo "New virtual environment created!"
+	if [ $# -eq 0 ]; then 	
+			if [ -f "$REQ" ];then
+					read -p "Do you want to install requirements.txt?(y/n)" CHOICE
+					if [ $CHOICE = "y" ]; then 
+							echo -e "$(tput bold)Installing dependencies....$(tput sgr0)"
+							pip install -r requirements.txt
+					fi
+			fi
+	fi
+fi
